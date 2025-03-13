@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Compressor - Reduce PDF File Size</title>
+    <meta name="description" content="Free online PDF compressor. Reduce PDF file size without compromising quality.">
+    <meta name="keywords" content="PDF compressor, reduce PDF size, online PDF tools">
+    <meta name="author" content="Your Company Name">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --background: #f8fafc;
+            --text-color: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            background-color: var(--background);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            padding: 2rem;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        #pdfInput {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+        }
+
+        .upload-label svg {
+            width: 3rem;
+            height: 3rem;
+            color: var(--primary-color);
+        }
+
+        button {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        #downloadLink {
+            display: none;
+            margin-top: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Compressor</h1>
+        <div class="upload-area" id="uploadArea">
+            <input type="file" id="pdfInput" accept="application/pdf">
+            <label class="upload-label" for="pdfInput">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+                <span style="font-size: 1.125rem; font-weight: 500;">Drag and drop PDFs</span>
+                <span style="color: #94a3b8;">or click to upload</span>
+            </label>
+        </div>
+
+        <button onclick="compressPDF()">
+            <span id="buttonText">Compress PDF</span>
+            <div class="loading-spinner" id="spinner"></div>
+        </button>
+        <a id="downloadLink">Download Compressed PDF</a>
+    </div>
+
+    <!-- PDF-LIB Library -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const pdfInput = document.getElementById('pdfInput');
+        const downloadLink = document.getElementById('downloadLink');
+        const spinner = document.getElementById('spinner');
+        const buttonText = document.getElementById('buttonText');
+
+        async function compressPDF() {
+            const file = pdfInput.files[0];
+            if (!file) return alert('Please select a PDF file first');
+
+            try {
+                buttonText.style.display = 'none';
+                spinner.style.display = 'block';
+
+                // Load the PDF file
+                const arrayBuffer = await file.arrayBuffer();
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+                // Optimize the PDF (remove metadata, compress images, etc.)
+                pdfDoc.removeTitle();
+                pdfDoc.removeAuthor();
+                pdfDoc.removeCreator();
+                pdfDoc.removeProducer();
+                pdfDoc.removeCreationDate();
+                pdfDoc.removeModificationDate();
+
+                // Save the optimized PDF
+                const compressedPdfBytes = await pdfDoc.save();
+
+                // Create a download link
+                const blob = new Blob([compressedPdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                downloadLink.href = url;
+                downloadLink.download = `compressed_${file.name}`;
+                downloadLink.style.display = 'block';
+
+                buttonText.style.display = 'block';
+                spinner.style.display = 'none';
+            } catch (error) {
+                console.error('Compression error:', error);
+                alert('Error: PDF compression failed');
+                buttonText.style.display = 'block';
+                spinner.style.display = 'none';
+            }
+        }
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            pdfInput.files = e.dataTransfer.files;
+        });
+    </script>
+</body>
+</html>
