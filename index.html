@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Hub - Free Online Tools for Images and PDFs</title>
+    <meta name="description" content="Free online tools for images and PDFs. Compress, convert, edit, and optimize your files with ease.">
+    <meta name="keywords" content="image tools, PDF tools, online tools, compress images, edit PDFs">
+    <meta name="author" content="Your Company Name">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --background: #f8fafc;
+            --text-color: #0f172a;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 0 0 1rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .tool-card a:hover {
+            background: var(--secondary-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: var(--card-bg);
+            border-radius: 1rem 1rem 0 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        footer p {
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .tool-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Tools Hub</h1>
+            <p>Your one-stop destination for free online tools to optimize, convert, and edit images and PDFs.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="tool-grid">
+                <!-- Image Tools -->
+                <div class="tool-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917636.png" alt="Image Compressor" >
+                    <h3>Image Compressor</h3>
+                    <p>Reduce image file size without losing quality. Supports JPEG, PNG, and WEBP.</p>
+                    <a href="/image-compression.html">Use Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917661.png" alt="Image Converter">
+                    <h3>Image Converter</h3>
+                    <p>Convert images between formats like JPG, PNG, WEBP, and more.</p>
+                    <a href="#">Use Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917695.png" alt="Image Resizer">
+                    <h3>Image Resizer</h3>
+                    <p>Resize images to specific dimensions while maintaining aspect ratio.</p>
+                    <a href="#">Use Tool</a>
+                </div>
+
+                <!-- PDF Tools -->
+                <div class="tool-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917744.png" alt="PDF Compressor">
+                    <h3>PDF Compressor</h3>
+                    <p>Reduce PDF file size without compromising quality.</p>
+                    <a href="#">Use Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917761.png" alt="PDF to Word">
+                    <h3>PDF to Word</h3>
+                    <p>Convert PDF files to editable Word documents.</p>
+                    <a href="#">Use Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917778.png" alt="PDF Merger">
+                    <h3>PDF Merger</h3>
+                    <p>Combine multiple PDF files into a single document.</p>
+                    <a href="#">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
